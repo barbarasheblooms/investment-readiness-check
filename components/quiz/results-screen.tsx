@@ -1,7 +1,7 @@
 "use client"
 
 import { RadarChart } from "./radar-chart"
-import { DIMENSIONS, getStage, type ScoreResult } from "@/lib/quiz-data"
+import { DIMENSIONS, getStage, getJourneyStage, type ScoreResult } from "@/lib/quiz-data"
 
 interface ResultsScreenProps {
   result: ScoreResult
@@ -11,6 +11,7 @@ interface ResultsScreenProps {
 export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
   const { total, breakdown } = result
   const stage = getStage(total)
+  const journeyStage = getJourneyStage(total)
 
   const handleCTA = () => {
     const urls: Record<string, string> = {
@@ -96,6 +97,40 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
         </div>
         <div className={`text-sm leading-relaxed ${diagnosisTextStyles[stage.diagnosisClass]}`}>
           {stage.diagnosisBody}
+        </div>
+      </div>
+
+      {/* Journey Stage Block */}
+      <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-full bg-[#eef0ff] flex items-center justify-center flex-shrink-0">
+            <span className="text-[13px] font-medium text-[#3730a3]">{journeyStage.number}</span>
+          </div>
+          <div>
+            <div className="text-[11px] font-medium tracking-widest uppercase text-gray-400">Sua posição na Jornada SheBlooms</div>
+            <div className="text-[15px] font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
+          </div>
+        </div>
+
+        <p className="text-sm text-gray-500 leading-relaxed mb-4">{journeyStage.description}</p>
+
+        <div className="bg-gray-50 rounded-lg p-4">
+          <div className="text-[11px] font-medium tracking-wider uppercase text-gray-400 mb-2.5">
+            Gates que você precisa fechar para avançar
+          </div>
+          <div className="flex flex-col gap-2">
+            {journeyStage.gates.map((gate, i) => (
+              <div key={i} className="flex items-start gap-2.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0 mt-1.5" />
+                <span className="text-sm text-gray-600 leading-snug">{gate}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 pt-3 border-t border-gray-100 text-sm text-gray-500 leading-relaxed">
+          <span className="font-medium text-gray-700">Próximo passo: </span>
+          {journeyStage.nextStep}
         </div>
       </div>
 

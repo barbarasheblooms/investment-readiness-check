@@ -231,7 +231,7 @@ export const STAGES: Stage[] = [
   },
   {
     min: 36,
-    max: 55,
+    max: 65,
     key: "pre-seed",
     label: "Pre-Seed Ready",
     sub: "Early signals — gaps to close before Seed",
@@ -254,7 +254,7 @@ export const STAGES: Stage[] = [
     plan: "grow",
   },
   {
-    min: 56,
+    min: 66,
     max: 75,
     key: "seed",
     label: "Seed-Stage Ready",
@@ -321,6 +321,74 @@ export interface ScoreBreakdown {
 export interface ScoreResult {
   total: number
   breakdown: ScoreBreakdown
+}
+
+export interface JourneyStage {
+  number: number
+  title: string
+  scoreRange: string
+  description: string
+  gates: string[]
+  nextStep: string
+}
+
+export const JOURNEY_STAGES: JourneyStage[] = [
+  {
+    number: 1,
+    title: "Discovery",
+    scoreRange: "0 → 20 pts na jornada",
+    description: "Você está validando o problema e definindo seu mercado.",
+    gates: [
+      "15+ entrevistas com potenciais clientes",
+      "70%+ dos entrevistados avaliam o problema com severidade 4–5",
+      "3+ sinais de demanda de pessoas que você não conhecia antes",
+    ],
+    nextStep: "Foque em entrevistas de descoberta e validação do problema antes de construir.",
+  },
+  {
+    number: 2,
+    title: "Product Market Fit",
+    scoreRange: "21 → 50 pts na jornada",
+    description: "Você tem MVP e primeiros usuários — agora precisa provar retenção.",
+    gates: [
+      "Retenção semana 2 > 30% (sem contato ativo da founder)",
+      "Sean Ellis Test > 40% ('muito desapontada' se o produto desaparecer)",
+      "Cohort mês 2 ≥ 20% por 2 cohorts consecutivos",
+    ],
+    nextStep: "Meça retenção semanalmente. Se abaixo de 30%, itere o produto antes de escalar.",
+  },
+  {
+    number: 3,
+    title: "Business Model Validation",
+    scoreRange: "51 → 75 pts na jornada",
+    description: "Você tem tração — agora precisa provar que o modelo de negócio é sustentável.",
+    gates: [
+      "Receita recorrente com 3+ clientes ativos",
+      "LTV/CAC ≥ 3:1 calculado com dados reais",
+      "3+ renovações espontâneas (sem follow-up da founder)",
+      "Modelo financeiro de 3 anos construído e defensável",
+    ],
+    nextStep: "Calcule seu CAC e LTV reais. Esses números são obrigatórios para qualquer conversa com investidor Seed.",
+  },
+  {
+    number: 4,
+    title: "Growth",
+    scoreRange: "76 → 100 pts na jornada",
+    description: "Seu modelo está validado — hora de abrir o round.",
+    gates: [
+      "Crescimento MoM ≥ 15% por 3 meses consecutivos",
+      "2+ canais de aquisição com CAC conhecido",
+      "Data Room com 25 documentos prontos para due diligence",
+    ],
+    nextStep: "Você está pronta para o Program Raise. Introductions quentes convertem 10x mais que cold outreach.",
+  },
+]
+
+export function getJourneyStage(quizScore: number): JourneyStage {
+  if (quizScore <= 35) return JOURNEY_STAGES[0]
+  if (quizScore <= 65) return JOURNEY_STAGES[1]
+  if (quizScore <= 75) return JOURNEY_STAGES[2]
+  return JOURNEY_STAGES[3]
 }
 
 export function calculateScore(answers: Record<number, number>): ScoreResult {
