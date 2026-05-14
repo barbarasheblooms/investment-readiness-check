@@ -61,14 +61,7 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
           {stage.label}
         </span>
 
-        <div className="text-sm text-gray-400 mb-4">{stage.sub}</div>
-
-        {/* Journey Stage Info */}
-        <div className="bg-gray-50 rounded-lg p-4 mb-6 text-center">
-          <div className="text-[11px] font-medium tracking-widest uppercase text-gray-400 mb-1">Your Position in the SheBlooms Journey</div>
-          <div className="text-[15px] font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
-          <p className="text-sm text-gray-500 mt-1">{journeyStage.description}</p>
-        </div>
+        <div className="text-sm text-gray-400 mb-6">{stage.sub}</div>
 
         {/* Radar Chart */}
         <div className="flex justify-center mb-2">
@@ -94,6 +87,23 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Journey Stage Info */}
+        <div className="mt-6 pt-6 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div 
+              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+              style={{ backgroundColor: stage.scoreColor }}
+            >
+              {journeyStage.number}
+            </div>
+            <div className="text-center">
+              <div className="text-[10px] font-medium tracking-widest uppercase text-gray-400">Your Position in the SheBlooms Journey</div>
+              <div className="text-lg font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
+            </div>
+          </div>
+          <p className="text-sm text-gray-500 text-center max-w-sm mx-auto">{journeyStage.description}</p>
         </div>
       </div>
 
