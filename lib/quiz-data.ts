@@ -247,8 +247,8 @@ export const STAGES: Stage[] = [
     ctaEyebrowColor: "#3730a3",
     ctaHeadline: "Get Seed-ready with Plan Grow",
     ctaNote:
-      "SheBlooms AI identifies the exact gaps in your business model. Join monthly Pitch Practices and access our curated database of 1,436 investors actively seeking your stage.",
-    features: ["AI Gap Analysis", "Monthly Pitch Practice", "1,436-Investor Database", "Pitch Deck Review"],
+      "SheBlooms identifies the exact gaps in your business model. Join monthly Pitch Practices and access our curated database of investors actively seeking your stage.",
+    features: ["Gap Analysis", "Monthly Pitch Practice", "Investor Database", "Pitch Deck Review"],
     ctaButton: "Get Plan Grow — €35/month →",
     ctaButtonClass: "rose",
     plan: "grow",
