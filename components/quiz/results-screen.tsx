@@ -1,7 +1,7 @@
 "use client"
 
 import { RadarChart } from "./radar-chart"
-import { DIMENSIONS, getStage, getJourneyStage, type ScoreResult } from "@/lib/quiz-data"
+import { DIMENSIONS, getStage, type ScoreResult } from "@/lib/quiz-data"
 
 interface ResultsScreenProps {
   result: ScoreResult
@@ -11,7 +11,6 @@ interface ResultsScreenProps {
 export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
   const { total, breakdown } = result
   const stage = getStage(total)
-  const journeyStage = getJourneyStage(total)
 
   const handleCTA = () => {
     const urls: Record<string, string> = {
@@ -89,22 +88,6 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
           ))}
         </div>
 
-        {/* Journey Stage Info */}
-        <div className="mt-6 pt-6 border-t border-gray-100">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <div 
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
-              style={{ backgroundColor: stage.scoreColor }}
-            >
-              {journeyStage.number}
-            </div>
-            <div className="text-center">
-              <div className="text-[10px] font-medium tracking-widest uppercase text-gray-400">Your Position in the SheBlooms Journey</div>
-              <div className="text-lg font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
-            </div>
-          </div>
-          <p className="text-sm text-gray-500 text-center max-w-sm mx-auto">{journeyStage.description}</p>
-        </div>
       </div>
 
       {/* Diagnosis Box */}
