@@ -64,7 +64,7 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
         <div className="text-sm text-gray-400 mb-4">{stage.sub}</div>
 
         {/* Journey Stage Info */}
-        <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+        <div className="bg-gray-50 rounded-lg p-4 mb-6 text-center">
           <div className="text-[11px] font-medium tracking-widest uppercase text-gray-400 mb-1">Your Position in the SheBlooms Journey</div>
           <div className="text-[15px] font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
           <p className="text-sm text-gray-500 mt-1">{journeyStage.description}</p>
