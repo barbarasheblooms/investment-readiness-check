@@ -106,11 +106,26 @@ export function Quiz() {
       plan: stage.plan,
     }
 
-    // Save to Supabase and HubSpot in parallel
+    // Save to Supabase and HubSpot in parallel, send email notification (fire-and-forget)
     await Promise.all([
       saveQuizLead(leadData),
       saveHubSpotLead(leadData),
     ])
+
+    // Send PDF email notification to SheBlooms team (non-blocking)
+    fetch("/api/send-results", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        startupName,
+        score: result.total,
+        traction: result.breakdown.traction,
+        team: result.breakdown.team,
+        readiness: result.breakdown.prep,
+      }),
+    }).catch((err) => console.error("Email notification failed:", err))
 
     setState((prev) => ({
       ...prev,
