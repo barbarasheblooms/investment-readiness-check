@@ -4,6 +4,7 @@ const HS_FORM_ID = "c1339ff0-331d-4373-b23f-20392c034f24"
 export interface HubSpotLead {
   name: string
   email: string
+  startup_name: string
   score: number
   stage: string
   plan: string
@@ -26,6 +27,7 @@ export async function saveHubSpotLead(data: HubSpotLead): Promise<boolean> {
           fields: [
             { name: "firstname", value: data.name },
             { name: "email", value: data.email },
+            { name: "company", value: data.startup_name },
             { name: "quiz_score", value: String(data.score) },
             { name: "quiz_stage", value: data.stage },
             { name: "quiz_plan", value: data.plan },
