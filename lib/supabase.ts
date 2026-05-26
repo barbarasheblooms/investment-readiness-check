@@ -8,6 +8,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export interface QuizLead {
   name: string
   email: string
+  startup_name: string
   score: number
   traction: number
   team: number
@@ -21,12 +22,12 @@ export async function saveQuizLead(data: QuizLead): Promise<boolean> {
     const { error } = await supabase
       .from('quiz_leads')
       .insert([data])
-    
+
     if (error) {
       console.error('Supabase error:', error)
       return false
     }
-    
+
     return true
   } catch (e) {
     console.error('Supabase:', e)
