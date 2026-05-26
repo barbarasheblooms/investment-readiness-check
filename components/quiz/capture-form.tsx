@@ -4,17 +4,17 @@ import { useState } from "react"
 import { CheckCircle } from "lucide-react"
 
 interface CaptureFormProps {
-  onSubmit: (name: string, email: string) => void
+  onSubmit: (name: string, email: string, startupName: string) => void
 }
 
 export function CaptureForm({ onSubmit }: CaptureFormProps) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [startupName, setStartupName] = useState("")
   const [touched, setTouched] = useState(false)
   const [emailError, setEmailError] = useState("")
 
   const validateEmail = (value: string): boolean => {
-    // Regex para validação de email mais robusta
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     return emailRegex.test(value)
   }
@@ -24,12 +24,12 @@ export function CaptureForm({ onSubmit }: CaptureFormProps) {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setEmail(value)
-    
+
     if (touched) {
       if (!value) {
-        setEmailError("Por favor, insira seu email")
+        setEmailError("Please enter your email address")
       } else if (!validateEmail(value)) {
-        setEmailError("Por favor, insira um email válido")
+        setEmailError("Please enter a valid email address")
       } else {
         setEmailError("")
       }
@@ -39,9 +39,9 @@ export function CaptureForm({ onSubmit }: CaptureFormProps) {
   const handleEmailBlur = () => {
     setTouched(true)
     if (!email) {
-      setEmailError("Por favor, insira seu email")
+      setEmailError("Please enter your email address")
     } else if (!validateEmail(email)) {
-      setEmailError("Por favor, insira um email válido")
+      setEmailError("Please enter a valid email address")
     } else {
       setEmailError("")
     }
@@ -49,18 +49,18 @@ export function CaptureForm({ onSubmit }: CaptureFormProps) {
 
   const handleSubmit = () => {
     setTouched(true)
-    
+
     if (!email) {
-      setEmailError("Por favor, insira seu email")
+      setEmailError("Please enter your email address")
       return
     }
-    
+
     if (!isValidEmail) {
-      setEmailError("Por favor, insira um email válido")
+      setEmailError("Please enter a valid email address")
       return
     }
-    
-    onSubmit(name, email)
+
+    onSubmit(name, email, startupName)
   }
 
   return (
@@ -75,13 +75,23 @@ export function CaptureForm({ onSubmit }: CaptureFormProps) {
         Where should we send your full investment readiness report?
       </p>
 
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">Name</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">Your name</label>
       <input
         type="text"
         placeholder="Your name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         autoComplete="name"
+        className="w-full p-3 border border-gray-200 rounded-lg text-[15px] text-gray-900 bg-white mb-3.5 outline-none transition-all focus:border-brand focus:ring-3 focus:ring-brand/10 placeholder:text-gray-400"
+      />
+
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">Startup name</label>
+      <input
+        type="text"
+        placeholder="Your startup's name"
+        value={startupName}
+        onChange={(e) => setStartupName(e.target.value)}
+        autoComplete="organization"
         className="w-full p-3 border border-gray-200 rounded-lg text-[15px] text-gray-900 bg-white mb-3.5 outline-none transition-all focus:border-brand focus:ring-3 focus:ring-brand/10 placeholder:text-gray-400"
       />
 
@@ -94,8 +104,8 @@ export function CaptureForm({ onSubmit }: CaptureFormProps) {
         onBlur={handleEmailBlur}
         autoComplete="email"
         className={`w-full p-3 border rounded-lg text-[15px] text-gray-900 bg-white outline-none transition-all placeholder:text-gray-400 ${
-          emailError 
-            ? "border-error focus:border-error focus:ring-3 focus:ring-error/10" 
+          emailError
+            ? "border-error focus:border-error focus:ring-3 focus:ring-error/10"
             : "border-gray-200 focus:border-brand focus:ring-3 focus:ring-brand/10"
         } ${emailError ? "mb-1" : "mb-3.5"}`}
       />
