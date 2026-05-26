@@ -18,6 +18,7 @@ interface QuizState {
   selectedScore: number | null
   name: string
   email: string
+  startupName: string
   result: ScoreResult | null
 }
 
@@ -28,6 +29,7 @@ const initialState: QuizState = {
   selectedScore: null,
   name: "",
   email: "",
+  startupName: "",
   result: null,
 }
 
@@ -88,13 +90,14 @@ export function Quiz() {
     }))
   }
 
-  const handleSubmit = async (name: string, email: string) => {
+  const handleSubmit = async (name: string, email: string, startupName: string) => {
     const result = calculateScore(state.answers)
     const stage = getStage(result.total)
 
     const leadData = {
       name,
       email,
+      startup_name: startupName,
       score: result.total,
       traction: result.breakdown.traction,
       team: result.breakdown.team,
@@ -103,7 +106,7 @@ export function Quiz() {
       plan: stage.plan,
     }
 
-    // Salvar dados no Supabase e HubSpot em paralelo
+    // Save to Supabase and HubSpot in parallel
     await Promise.all([
       saveQuizLead(leadData),
       saveHubSpotLead(leadData),
@@ -113,6 +116,7 @@ export function Quiz() {
       ...prev,
       name,
       email,
+      startupName,
       result,
       phase: "results",
     }))
