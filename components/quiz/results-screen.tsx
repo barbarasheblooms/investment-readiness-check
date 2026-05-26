@@ -107,7 +107,7 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
             <span className="text-[13px] font-medium text-[#3730a3]">{journeyStage.number}</span>
           </div>
           <div>
-            <div className="text-[11px] font-medium tracking-widest uppercase text-gray-400">Sua posição na Jornada SheBlooms</div>
+            <div className="text-[11px] font-medium tracking-widest uppercase text-gray-400">Your position in the SheBlooms Journey</div>
             <div className="text-[15px] font-medium text-gray-900">Stage {journeyStage.number} — {journeyStage.title}</div>
           </div>
         </div>
@@ -116,7 +116,7 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
 
         <div className="bg-gray-50 rounded-lg p-4">
           <div className="text-[11px] font-medium tracking-wider uppercase text-gray-400 mb-2.5">
-            Gates que você precisa fechar para avançar
+            Gates to close before moving forward
           </div>
           <div className="flex flex-col gap-2">
             {journeyStage.gates.map((gate, i) => (
@@ -129,7 +129,7 @@ export function ResultsScreen({ result, onRetake }: ResultsScreenProps) {
         </div>
 
         <div className="mt-3 pt-3 border-t border-gray-100 text-sm text-gray-500 leading-relaxed">
-          <span className="font-medium text-gray-700">Próximo passo: </span>
+          <span className="font-medium text-gray-700">Next step: </span>
           {journeyStage.nextStep}
         </div>
       </div>
